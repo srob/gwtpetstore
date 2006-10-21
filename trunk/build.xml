@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="GWT-PetStore" default="all" basedir=".">
+	<description>
+		This is the build file for GWT module 'au.com.gworks.gwt.petstore.PetStore' 
+		deployment. I used GWT Designer to generate it but will maintain it by 
+		hand.
+	</description>
+
+	<property name="gwt.home" value="C:\usr.local\tool\gwt-windows-1.1.10" />
+	<property name="gwt.module.id" value="au.com.gworks.gwt.petstore.PetStore" />
+	<property name="jar.name" value="PetStore.jar" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="tomcat-webapps-ROOT-WEB-INF.dir" value="${basedir}/tomcat/webapps/ROOT/WEB-INF" />
+	<property name="war.name" value="gwt-petstore.war" />
+
+	<target name="jar" description="Package up the project as a jar">
+		<mkdir dir="@dot/${gwt.module.id}/WEB-INF/lib" />
+		<jar destfile="@dot/${gwt.module.id}/WEB-INF/lib/${jar.name}">
+			<fileset dir="build/classes">
+				<include name="**/*.class" />
+			</fileset>
+			<!-- Get everything; source, modules, html files -->
+			<fileset dir="src">
+				<include name="**" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="gwt-compile" description="Compile to JavaScript">
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true">
+			<classpath>
+				<pathelement location="src" />
+				<pathelement location="build/classes" />
+				<pathelement location="lib/wsdl4j.jar" />
+				<pathelement location="lib/aspectjweaver.jar" />
+				<pathelement location="lib/axis.jar" />
+				<pathelement location="lib/burlap-2.1.12.jar" />
+				<pathelement location="lib/commons-beanutils.jar" />
+				<pathelement location="lib/commons-collections.jar" />
+				<pathelement location="lib/commons-dbcp.jar" />
+				<pathelement location="lib/commons-digester.jar" />
+				<pathelement location="lib/commons-discovery.jar" />
+				<pathelement location="lib/commons-logging.jar" />
+				<pathelement location="lib/commons-pool.jar" />
+				<pathelement location="lib/commons-validator.jar" />
+				<pathelement location="lib/hessian-2.1.12.jar" />
+				<pathelement location="lib/hsqldb.jar" />
+				<pathelement location="lib/ibatis-common-2.jar" />
+				<pathelement location="lib/ibatis-sqlmap-2.jar" />
+				<pathelement location="lib/jaxrpc.jar" />
+				<pathelement location="lib/jpetstore.jar" />
+				<pathelement location="lib/jstl.jar" />
+				<pathelement location="lib/saaj.jar" />
+				<pathelement location="lib/spring.jar" />
+				<pathelement location="lib/standard.jar" />
+				<pathelement location="lib/gwt-widgets-spring.jar" />
+				
+				<!-- compile time only references -->
+				<pathelement location="lib/gems-2.0.0.jar" />
+				<pathelement location="${gwt.home}/gwt-user.jar" />
+				<pathelement location="${gwt.home}/gwt-dev-windows.jar" />
+			</classpath>
+			<arg value="-out" />
+			<arg file="@dot" />
+			<arg value="${gwt.module.id}" />
+		</java>
+	</target>
+
+	<target name="web-xml">
+		<mkdir dir="@dot/${gwt.module.id}/WEB-INF" />
+		<copy todir="@dot/${gwt.module.id}/WEB-INF">
+			<fileset dir="${tomcat-webapps-ROOT-WEB-INF.dir}"></fileset>
+		</copy>
+		<copy todir="@dot/${gwt.module.id}/WEB-INF/lib">
+			<fileset dir="${lib.dir}"></fileset>
+		</copy>
+	</target>
+
+	<target name="war" depends="jar, gwt-compile, web-xml">
+		<mkdir dir="@dot/${gwt.module.id}/WEB-INF/lib" />
+		<copy file="${gwt.home}/gwt-servlet.jar" todir="@dot/${gwt.module.id}/WEB-INF/lib" />
+		<jar destfile="${war.name}" basedir="@dot/${gwt.module.id}" duplicate="preserve" />
+		<delete dir="@dot" />
+	</target>
+	
+	<target name="deploy" depends="war">
+		<move file="${war.name}" todir="bin" />
+	</target>
+
+	<target name="all" depends="deploy" />
+</project>

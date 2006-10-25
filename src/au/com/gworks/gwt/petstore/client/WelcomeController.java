@@ -39,10 +39,11 @@ public class WelcomeController extends AbstractPageController implements Transit
 	private OpacityEffect fadeEffect = new OpacityEffect(null, 0.0f);
 	private Element gwt, main, toggle;
 	
-	public void setUp() {
+	public void setUp(StoreCoordinator coord) {
+		super.setUp(coord);
 		view = new WelcomeView();
-		setPagePanel(StoreCoordinator.instance.getPagePanel());
-		StoreCoordinator.instance.registerPageController(view, this);
+		setPagePanel(coordinator.getPagePanel());
+		coordinator.registerPageController(view, this);
 		fadeEffect.setEffectListener(this);
 		gwt = view.getGwtLibsContainer().getElement();
 		main = view.getMainLibsContainer().getElement();
@@ -59,7 +60,7 @@ public class WelcomeController extends AbstractPageController implements Transit
 	}
 	
 	public void mountPageView() {
-		StoreCoordinator.instance.getPagePanel().add(view, null, "Welcome", false);
+		coordinator.getPagePanel().add(view, null, "Welcome", false);
 	}
 	
 	protected void openPage() {
@@ -68,8 +69,8 @@ public class WelcomeController extends AbstractPageController implements Transit
 			WelcomeRpcController.Util.getInstance().getAboutInfo(call);
 			openned = true;
 		}
-		Widget w = StoreCoordinator.instance.getCartController().getSummaryView();
-		StoreCoordinator.instance.getPagePanel().setPageContext(w);
+		Widget w = ((StoreCoordinator)coordinator).getCartController().getSummaryView();
+		coordinator.getPagePanel().setPageContext(w);
 		super.openPage();
 		OpacityEffect.setElementOpacity(gwt, 1); UIObject.setVisible(gwt, true);
 		OpacityEffect.setElementOpacity(main, 0); UIObject.setVisible(main, true);

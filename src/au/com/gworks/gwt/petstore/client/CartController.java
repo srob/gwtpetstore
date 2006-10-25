@@ -49,11 +49,12 @@ public class CartController extends AbstractPageController {
 	private Map/*<CartItemRefInfo,ItemInfo>*/ cartItemItemDetailMap = new HashMap();
 	private Map/*<String,CartItemRefInfo>*/ cartItemMap = new HashMap();
 	
-	public void setUp() {
+	public void setUp(StoreCoordinator coord) {
+		super.setUp(coord);
 		detailView = new CartView();
 		summaryView = new CartMonitorView();
-		setPagePanel(StoreCoordinator.instance.getPagePanel());
-		StoreCoordinator.instance.registerPageController(detailView, this);
+		setPagePanel(coordinator.getPagePanel());
+		coordinator.registerPageController(detailView, this);
 		detailView.setUp(this);
 	}
 		

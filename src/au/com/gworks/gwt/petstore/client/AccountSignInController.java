@@ -39,10 +39,11 @@ public class AccountSignInController extends AbstractPageController
   
   private AccountSignInView view;
   
-  public void setUp() {
+  public void setUp(StoreCoordinator coord) {
+	  super.setUp(coord);
     view = new AccountSignInView();
-    setPagePanel(StoreCoordinator.instance.getPagePanel());
-    StoreCoordinator.instance.registerPageController(view, this);
+    setPagePanel(coordinator.getPagePanel());
+    coordinator.registerPageController(view, this);
     view.setFormListener(this);
   }
   
@@ -88,7 +89,7 @@ public class AccountSignInController extends AbstractPageController
         AccountInfo infoResult = (AccountInfo) result;
         if (infoResult != null) {
           GWT.log("[DEBUG] Login success.", null);
-          StoreCoordinator.instance.updateLoginStatus(true, infoResult);
+          ((StoreCoordinator)coordinator).updateLoginStatus(true, infoResult);
           History.newItem("shopping");
         } else {
           GWT.log("[DEBUG] Login failed.", null);
@@ -102,7 +103,7 @@ public class AccountSignInController extends AbstractPageController
 
   private void registerAccount() {
     view.hide();
-    StoreCoordinator.instance.getAccountController().setNewAccount(true);
+    ((StoreCoordinator)coordinator).getAccountController().setNewAccount(true);
     History.newItem("account");
   }
   
@@ -115,7 +116,7 @@ public class AccountSignInController extends AbstractPageController
       }
     };
     AccountRpcController.Util.getInstance().signOut(cb);
-    StoreCoordinator.instance.updateLoginStatus(false, null);
+    ((StoreCoordinator)coordinator).updateLoginStatus(false, null);
   }
 
   // ================================================================= Listener Method.

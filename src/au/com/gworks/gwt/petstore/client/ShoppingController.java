@@ -27,6 +27,7 @@ import java.util.Map;
 import org.javaongems.gwk.client.AbstractPageController;
 import org.javaongems.gwk.client.Card;
 import org.javaongems.gwk.client.CardDeck;
+import org.javaongems.std.client.Gem;
 import org.javaongems.win.client.OutlookBar;
 import org.javaongems.win.client.OutlookBarItem;
 import org.javaongems.win.client.OutlookBarList;
@@ -40,8 +41,6 @@ import au.com.gworks.gwt.petstore.client.service.UrlBaseRequestInfo;
 import au.com.gworks.gwt.petstore.client.service.UrlItemRequestInfo;
 import au.com.gworks.gwt.petstore.client.service.UrlProductRequestInfo;
 
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ShoppingController extends AbstractPageController {
@@ -67,14 +66,19 @@ public class ShoppingController extends AbstractPageController {
 	private boolean openned = false;
 	private boolean bypassEvent = false;
 	
-	public void setUp() {
+	public void setUp(StoreCoordinator coord) {
+		super.setUp(coord);
 		view = new ShoppingView();
-		setPagePanel(StoreCoordinator.instance.getPagePanel());
-		StoreCoordinator.instance.registerPageController(view, this);
+		setPagePanel(coordinator.getPagePanel());
+		coordinator.registerPageController(view, this);
 		view.setUp(aisleListener, shelfListener);
 	}
 
 	public void loadStoreAisles() {
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadStoreAisles queryCtx=" + queryCtx);
+		if (queryCtx.size() > 0)
+			return;
 		ControllerCall cb = new ControllerCall() {
 			public void onSuccess(Object result) {
 				listStoreAisles(result);		
@@ -86,8 +90,9 @@ public class ShoppingController extends AbstractPageController {
 	private void loadAislesProducts(int idx) {
 		if (idx == -1)
 			return;
-
 		String catId = aisles[idx].id;
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadAislesProducts catId=" + catId + ", queryCtx=" + queryCtx);
 		ControllerCall cb = new ControllerCall(AISLE_INDEX, new Integer(idx)) {
 			public void onSuccess(Object result) {
 				listAislesProducts(result, this.state);		
@@ -99,8 +104,9 @@ public class ShoppingController extends AbstractPageController {
 	private void loadProductShelf(int idx) {
 		if (idx == -1)
 			return;
-
 		String prodId = products[idx].id;
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadProductShelf prodId=" + prodId + ", queryCtx=" + queryCtx);
 		ControllerCall cb = new ControllerCall(PRODUCT_INDEX, new Integer(idx)) {
 			public void onSuccess(Object result) {
 				listProductShelf(result, this.state);		
@@ -113,6 +119,8 @@ public class ShoppingController extends AbstractPageController {
 	private void loadShelfItemDetails(Card sender) {
 		ProductCardView card = (ProductCardView) sender;
 		ItemRefInfo sri = card.getShelfRefInfo();
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadShelfItemDetails itemId=" + sri.id);
 		ControllerCall cb = new ControllerCall(ITEM_CARD, card) {
 			public void onSuccess(Object result) {
 				listShelfItemDetails(result, this.state);		
@@ -122,28 +130,24 @@ public class ShoppingController extends AbstractPageController {
 	}
 	
 	private void loadCompleteDetailsForUrlItemRequest(String itemId) {
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadCompleteDetailsForUrlItemRequest itemId=" + itemId);
 		ControllerCall cb = new ControllerCall(ITEM_ID, itemId) {
 			public void onSuccess(final Object result) {
 				final Map theState = this.state;
-				DeferredCommand.add(new Command() {
-					public void execute() {
-						listCompleteDetailsForUrlItemRequest(result, theState);		
-					}
-				});
+				listCompleteDetailsForUrlItemRequest(result, theState);		
 			}
 		};
 		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlItemRequest(itemId, cb);
 	}
 
 	private void loadCompleteDetailsForUrlProductRequest(String prodId) {
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("loadCompleteDetailsForUrlProductRequest prodId=" + prodId);
 		ControllerCall cb = new ControllerCall(PROD_ID, prodId) {
 			public void onSuccess(final Object result) {
 				final Map theState = this.state;
-				DeferredCommand.add(new Command() {
-					public void execute() {
-						listCompleteDetailsForUrlProductRequest(result, theState);		
-					}
-				});
+				listCompleteDetailsForUrlProductRequest(result, theState);		
 			}
 		};
 		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlProductRequest(prodId, cb);
@@ -152,6 +156,8 @@ public class ShoppingController extends AbstractPageController {
 	private void listStoreAisles(Object result) {
 		aisles = (AisleInfo[]) result;
 		view.loadAisles(aisles);
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("listStoreAisles aisles=" + aisles + ", queryCtx=" + queryCtx);
 	}
 	
 	private void listAislesProducts(Object result, Map callState) {
@@ -159,13 +165,10 @@ public class ShoppingController extends AbstractPageController {
 		products = resProds;
 		Integer idx = (Integer) callState.get(AISLE_INDEX);
 		view.loadProducts(idx.intValue(), resProds);
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("listAislesProducts resProds=" + resProds + ", queryCtx=" + queryCtx);
 		if (!bypassEvent)
 			loadProductShelf(0);
-//		if (Gem.stone.isDebugEnabled()) {
-//			Gem.stone.log("listAislesProducts: idx=" + idx + ", resProds.len=" + resProds.length + ", byP=" + bypassEvent);
-//			for (int i = 0; i < resProds.length; i++) 
-//				Gem.stone.log("__" + i + "." + resProds[i].description);	
-//		}
 	}
 	
 	private void listProductShelf(Object result, Map callState) {
@@ -173,20 +176,17 @@ public class ShoppingController extends AbstractPageController {
 		shelfRefs = resShelves;
 		Integer idx = (Integer) callState.get(PRODUCT_INDEX);
 		ProductInfo[] callProds = (ProductInfo[]) callState.get(PRODUCTS_ARR); 
-		ProductInfo productInfo = callProds[idx.intValue()];	
+		ProductInfo productInfo = callProds[idx.intValue()];
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("listProductShelf prodId=" + productInfo.id + ", queryCtx=" + queryCtx);
 		view.loadShelf(productInfo, resShelves);
-//		if (Gem.stone.isDebugEnabled()) {
-//			Gem.stone.log("listProductShelf: idx=" + idx + ", callProds.len=" + callProds.length + ", productInfo.id=" + productInfo.id + ", resShelves.len=" +resShelves.length);
-//			for (int i = 0; i < callProds.length; i++) 
-//				Gem.stone.log("__" + i + "." + callProds[i].description);	
-//			for (int i = 0; i < resShelves.length; i++) 
-//				Gem.stone.log("__" + i + "." + resShelves[i].description);	
-//		}
 	}
 	
 	private void listShelfItemDetails(Object result, Map callState) {
 		ItemInfo detail = (ItemInfo) result;
 		ProductCardView card = (ProductCardView) callState.get(ITEM_CARD);
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("listShelfItemDetails itemId=" + detail.id + ", queryCtx=" + queryCtx);;
 		card.setShelfRefInfo(detail);
 	}
 	
@@ -194,15 +194,17 @@ public class ShoppingController extends AbstractPageController {
 		UrlItemRequestInfo data = (UrlItemRequestInfo) result;
 		callState.put(RESULT, result);
 		bypassEvent = true;
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("listCompleteDetailsForUrlItemRequest data.nominatedItem.id=" + data.nominatedItem.id);
 		try {
 			listCompleteDetailsBase(callState, data);
 			callState.put(PRODUCT_INDEX, new Integer(findProductIndex(data.products, data.productId)));
-//			shelfRefs = data.items;	// ASW
 			callState.put(PRODUCTS_ARR, data.products);
 			listProductShelf(data.items, callState);
 			ProductCardView card = view.findAndOpenProductCard(data.nominatedItem.id);
 			card.setShelfRefInfo(data.nominatedItem);
 		} finally {
+			queryCtx.clear();
 			bypassEvent = false;
 		}
 	}
@@ -215,12 +217,15 @@ public class ShoppingController extends AbstractPageController {
 		try {
 			listCompleteDetailsBase(callState, data);
 		} finally {
+			queryCtx.clear();
 			bypassEvent = false;
 		}
 		loadProductShelf(findProductIndex(data.products, prodId));
 	}
 	
 	private void listCompleteDetailsBase(Map callState, UrlBaseRequestInfo data) {
+		if (aisles == null)
+			listStoreAisles(data.aisles);
 		int aisleIdx = findAisleIndex(data.aisleId);
 		callState.put(AISLE_INDEX, new Integer(aisleIdx));
 		products = data.products;
@@ -279,8 +284,6 @@ public class ShoppingController extends AbstractPageController {
 	}
 	
 	protected void preparePageForQuery(Map queryMap) {
-		if (queryMap.size() == 0)
-			return;
 		String itemId = (String) queryMap.get(ITEM_ID);
 		String prodId = (String) queryMap.get(PROD_ID);
 		if (itemId != null)  
@@ -298,13 +301,16 @@ public class ShoppingController extends AbstractPageController {
 	}
 	
 	protected void openPage() {
-		if (!openned) {
+		if (!openned && coordinator.isUrlBootstrapped()) {
 			loadStoreAisles();
 			openned = true;
 		}
-		Widget w = StoreCoordinator.instance.getCartController().getSummaryView();
+		Widget w = ((StoreCoordinator)coordinator).getCartController().getSummaryView();
 		pagePanel.setPageContext(w);
-		super.openPage();
+		if (Gem.stone.isDebugEnabled())
+			Gem.stone.log("openPage queryCtx="+queryCtx);
+		if (queryCtx.size() == 0)
+			super.openPage();
 	}
 	
 	protected void onControllerCallSuccess(ControllerCall call, Object result) {

@@ -87,6 +87,7 @@ public class ShoppingRpcControllerImpl implements
 	private void listCompleteDetailsBase(Product prodDto, UrlBaseRequestInfo ret) {
 		ret.aisleId = prodDto.getCategoryId();
 		ret.productId = prodDto.getProductId();
+		ret.aisles = listStoreAisles();
 		ret.products = listAislesProducts(ret.aisleId);
 	}
 

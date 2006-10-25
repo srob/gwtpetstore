@@ -149,6 +149,6 @@ public class ProductCardView extends Card implements ClickListener {
 
 	public void onClick(Widget sender) {
 		if (sender.equals(addToCartBtn)) 
-			StoreCoordinator.instance.getCartController().add(productInfo, (ItemInfo) itemRefInfo);
+			StoreCoordinator.getInstance().getCartController().add(productInfo, (ItemInfo) itemRefInfo);
 	}
 }

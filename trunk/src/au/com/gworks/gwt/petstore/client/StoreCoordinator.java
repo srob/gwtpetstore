@@ -40,8 +40,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class StoreCoordinator extends AbstractPageCoordinator implements
 		EndpointUtils.Adapter {
-	static public StoreCoordinator instance;
 
+	static private StoreCoordinator instance;
+	
 	private StoreView view;
 	private WelcomeController welcomeController = new WelcomeController();
 	private ShoppingController shoppingController = new ShoppingController();
@@ -61,12 +62,12 @@ public class StoreCoordinator extends AbstractPageCoordinator implements
 		if (GWT.isScript())
 			System.setErr(StringPrintStream.ERROR_BUFFER);
 		EndpointUtils.setInstance(this);
-		welcomeController.setUp();
-		shoppingController.setUp();
-		cartController.setUp();
-		accountController.setUp();
-		storeSearchController.setUp();
-		signinController.setUp();
+		welcomeController.setUp(this);
+		shoppingController.setUp(this);
+		cartController.setUp(this);
+		accountController.setUp(this);
+		storeSearchController.setUp(this);
+		signinController.setUp(this);
 		if (Gem.stone.isDebugEnabled())
 			logOutputController.setUp(this);
 		for (Iterator iter = controllers.iterator(); iter.hasNext();) {
@@ -144,5 +145,9 @@ public class StoreCoordinator extends AbstractPageCoordinator implements
 				logOutputController.log(msg, e);
 			}
 		}
+	}
+
+	static public StoreCoordinator getInstance() {
+		return (StoreCoordinator) instance;
 	}
 }

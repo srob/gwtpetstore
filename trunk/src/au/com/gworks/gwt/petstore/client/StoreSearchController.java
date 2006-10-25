@@ -24,6 +24,7 @@ package au.com.gworks.gwt.petstore.client;
 
 import org.javaongems.gwk.client.AbstractPageController;
 import org.javaongems.gwk.client.SearchBar;
+import org.javaongems.std.client.HistoryUtils;
 
 import au.com.gworks.gwt.petstore.client.service.ProductInfo;
 import au.com.gworks.gwt.petstore.client.service.StoreSearchRpcController;
@@ -42,12 +43,13 @@ public class StoreSearchController
 	private StoreSearchView view;
 	private ProductInfo[] model;
 	
-	public void setUp() {
+	public void setUp(StoreCoordinator coord) {
+		super.setUp(coord);
 		view = new StoreSearchView();
 		view.setUp(this);
-		setPagePanel(StoreCoordinator.instance.getPagePanel());
-		StoreCoordinator.instance.registerPageController(view, this);
-		StoreCoordinator.instance.getStoreSearchBar().setSearchListener(this);
+		setPagePanel(coordinator.getPagePanel());
+		coordinator.registerPageController(view, this);
+		((StoreCoordinator)coordinator).getStoreSearchBar().setSearchListener(this);
 	}
 	
 	protected String getPageName() {
@@ -59,13 +61,13 @@ public class StoreSearchController
 	}
 	
 	protected void openPage() {
-		Widget w = StoreCoordinator.instance.getCartController().getSummaryView();
-		StoreCoordinator.instance.getPagePanel().setPageContext(w);
+		Widget w = ((StoreCoordinator)coordinator).getCartController().getSummaryView();
+		coordinator.getPagePanel().setPageContext(w);
 		super.openPage();
 	}
 	
 	public void mountPageView() {
-		StoreCoordinator.instance.getPagePanel().add(view, null, "Search results", false);
+		coordinator.getPagePanel().add(view, null, "Search results", false);
 	}
 
 	protected void onControllerCallSuccess(ControllerCall call, Object result) {
@@ -76,13 +78,13 @@ public class StoreSearchController
 	public void onCellClicked(SourcesTableEvents sender, int row, int cell) {
 		if (row > -1) {
 			String id = model[row].id;
-			History.newItem("shopping?" + ShoppingController.PROD_ID + "=" + id);
+			History.newItem("shopping" + HistoryUtils.QUERY_TOK + ShoppingController.PROD_ID + "=" + id);
 		}
 	}
 
 	public void onSearch(String srcText, int sndrBtnIdx) {
 		ControllerCall call = new ControllerCall();
 		StoreSearchRpcController.Util.getInstance().searchForProducts(srcText, call);
-		StoreCoordinator.instance.getPagePanel().selectPage(view);
+		coordinator.getPagePanel().selectPage(view);
 	}
 }

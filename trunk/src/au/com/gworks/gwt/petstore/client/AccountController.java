@@ -39,10 +39,11 @@ public class AccountController extends AbstractPageController
   AccountInfo accountInfo;
   boolean newAccount = true;
   
-  public void setUp() {
+  public void setUp(StoreCoordinator coord) {
+	super.setUp(coord);
     view = new AccountFormView(this);
-    setPagePanel(StoreCoordinator.instance.getPagePanel());
-    StoreCoordinator.instance.registerPageController(view, this);
+    setPagePanel(coordinator.getPagePanel());
+    coordinator.registerPageController(view, this);
     view.setFormListener(this);
   }
 
@@ -70,7 +71,7 @@ public class AccountController extends AbstractPageController
       view.setTitleBarLabel("Account");
       retrieveAccount();
     }
-    Widget w = StoreCoordinator.instance.getCartController().getSummaryView();
+    Widget w = ((StoreCoordinator)coordinator).getCartController().getSummaryView();
     pagePanel.setPageContext(w);
     super.openPage();
   }
@@ -96,7 +97,7 @@ public class AccountController extends AbstractPageController
         AccountInfo infoResult = (AccountInfo) result;
         if (infoResult != null) {
           GWT.log("[DEBUG] Account created and login", null);
-          StoreCoordinator.instance.updateLoginStatus(true, infoResult);
+          ((StoreCoordinator)coordinator).updateLoginStatus(true, infoResult);
           History.newItem("shopping");
         } else {
           History.newItem("welcome");
@@ -135,7 +136,7 @@ public class AccountController extends AbstractPageController
         AccountInfo infoResult = (AccountInfo) result;
         if (infoResult != null) {
           GWT.log("[DEBUG] Account updated and login.", null);
-          StoreCoordinator.instance.updateLoginStatus(true, infoResult);
+          ((StoreCoordinator)coordinator).updateLoginStatus(true, infoResult);
           History.newItem("shopping");
         } else {
           History.newItem("welcome");

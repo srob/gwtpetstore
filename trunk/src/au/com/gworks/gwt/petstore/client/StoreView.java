@@ -25,6 +25,7 @@ package au.com.gworks.gwt.petstore.client;
 import org.javaongems.gwk.client.ApplicationLinkBar;
 import org.javaongems.gwk.client.PagePanel;
 import org.javaongems.std.client.DivPanel;
+import org.javaongems.std.client.HistoryUtils;
 
 import au.com.gworks.gwt.petstore.client.service.AccountInfo;
 
@@ -87,16 +88,16 @@ public class StoreView extends Composite {
   public void updateLoginStatus(boolean isLogin, AccountInfo info) {
     storeLinkBar.getEastLinks().clear();
     if (!isLogin) {
-      Hyperlink hl1 = new Hyperlink("Help", "shopping?item-id=EST-27&test=one");
+      Hyperlink hl1 = new Hyperlink("Help", "shopping" + HistoryUtils.QUERY_TOK + "item-id=EST-27&test=one");
       Hyperlink hl2 = new Hyperlink("Sign in", "sign-in");
       storeLinkBar.getEastLinks().addHyperLink(hl1);
       storeLinkBar.getEastLinks().addHyperLink(hl2);
     } else {
       Label l1 = new Label(info.email);
       storeLinkBar.getEastLinks().addLabel(l1);
-      Hyperlink hl1 = new Hyperlink("Help", "shopping?item-id=EST-27&test=one");
+      Hyperlink hl1 = new Hyperlink("Help", "shopping" + HistoryUtils.QUERY_TOK + "item-id=EST-27&test=one");
       Hyperlink hl2 = new Hyperlink("Account", "account");
-      Hyperlink hl3 = new Hyperlink("Sign Out", "sign-in?out=ok");
+      Hyperlink hl3 = new Hyperlink("Sign Out", "sign-in" + HistoryUtils.QUERY_TOK + "out=ok");
       storeLinkBar.getEastLinks().addHyperLink(hl1);
       storeLinkBar.getEastLinks().addHyperLink(hl2);
       storeLinkBar.getEastLinks().addHyperLink(hl3);

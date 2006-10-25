@@ -27,5 +27,6 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class UrlBaseRequestInfo implements IsSerializable {
 	public String aisleId;
 	public String productId;
+	public AisleInfo[] aisles;
 	public ProductInfo[] products;
 }

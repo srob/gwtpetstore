@@ -30,6 +30,6 @@ public interface ShoppingRpcControllerAsync {
 	public void listProductShelf(String productId, AsyncCallback cb);
 	public void listShelfItemDetails(String itemId, AsyncCallback cb);
 	
-	public void listCompleteDetailsForUrlItemRequest(String itemId, AsyncCallback cb);
-	public void listCompleteDetailsForUrlProductRequest(String productId, AsyncCallback cb);
+	public void listCompleteDetailsForUrlItemRequest(String itemId, boolean inclAisles, AsyncCallback cb);
+	public void listCompleteDetailsForUrlProductRequest(String productId, boolean inclAisles, AsyncCallback cb);
 }

@@ -33,8 +33,8 @@ public interface ShoppingRpcController extends RemoteService {
 	public ProductInfo[] listAislesProducts(String catId);
 	public ItemRefInfo[] listProductShelf(String productId);
 	public ItemInfo listShelfItemDetails(String itemId);
-	public UrlItemRequestInfo listCompleteDetailsForUrlItemRequest(String itemId);
-	public UrlProductRequestInfo listCompleteDetailsForUrlProductRequest(String productId);
+	public UrlItemRequestInfo listCompleteDetailsForUrlItemRequest(String itemId, boolean inclAisles);
+	public UrlProductRequestInfo listCompleteDetailsForUrlProductRequest(String productId, boolean inclAisles);
 	
 	/**
 	 * Utility class for simplifing access to the instance of async service.

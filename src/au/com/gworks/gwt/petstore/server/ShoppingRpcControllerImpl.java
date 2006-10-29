@@ -57,24 +57,24 @@ public class ShoppingRpcControllerImpl implements
 		this.petStore = petStore;
 	}
 	
-	public UrlItemRequestInfo listCompleteDetailsForUrlItemRequest(String itemId) {
+	public UrlItemRequestInfo listCompleteDetailsForUrlItemRequest(String itemId, boolean inclAisles) {
 		Item itemDto = petStore.getItem(itemId);
 		if (itemDto == null)
 			return null;
 		Product prodDto = itemDto.getProduct();
 		UrlItemRequestInfo ret = new UrlItemRequestInfo();
-		listCompleteDetailsBase(prodDto, ret);
+		listCompleteDetailsBase(prodDto, inclAisles, ret);
 		ret.items = listProductShelf(itemDto.getProductId());
 		ret.nominatedItem = listShelfItemDetails(itemId);
 		return ret;
 	}
 
-	public UrlProductRequestInfo listCompleteDetailsForUrlProductRequest(String productId) {
+	public UrlProductRequestInfo listCompleteDetailsForUrlProductRequest(String productId, boolean inclAisles) {
 		Product prodDto = petStore.getProduct(productId);
 		if (prodDto == null)
 			return null;
 		UrlProductRequestInfo ret = new UrlProductRequestInfo();
-		listCompleteDetailsBase(prodDto, ret);
+		listCompleteDetailsBase(prodDto, inclAisles, ret);
 		for (int i = 0; i < ret.products.length; i++) {
 			if (ret.products[i].id.equals(productId)) {
 				ret.nominatedProduct = ret.products[i];
@@ -84,10 +84,11 @@ public class ShoppingRpcControllerImpl implements
 		return ret;
 	}
 	
-	private void listCompleteDetailsBase(Product prodDto, UrlBaseRequestInfo ret) {
+	private void listCompleteDetailsBase(Product prodDto, boolean inclAisles, UrlBaseRequestInfo ret) {
 		ret.aisleId = prodDto.getCategoryId();
 		ret.productId = prodDto.getProductId();
-		ret.aisles = listStoreAisles();
+		if (inclAisles)
+			ret.aisles = listStoreAisles();
 		ret.products = listAislesProducts(ret.aisleId);
 	}
 

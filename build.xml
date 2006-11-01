@@ -6,7 +6,7 @@
 		hand.
 	</description>
 
-	<property name="gwt.home" value="C:\usr.local\tool\gwt-windows-1.1.10" />
+	<property name="gwt.home" value="C:\usr.local\tool\gwt-windows-1.2.11" />
 	<property name="gwt.module.id" value="au.com.gworks.gwt.petstore.PetStore" />
 	<property name="jar.name" value="PetStore.jar" />
 	<property name="lib.dir" value="${basedir}/lib" />

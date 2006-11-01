@@ -120,8 +120,7 @@ public class StoreCoordinator extends AbstractPageCoordinator implements
 	 */
 	public String adapt(String service) {
 		String base = service;
-		boolean isShellServer = "true".equals(Gem.getProperty("isShellServer"));
-		if (GWT.isScript() && !isShellServer)
+		if (GWT.isScript())
 			base = GWT.getModuleBaseURL() + service;
 		return base;
 	}

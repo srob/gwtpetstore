@@ -23,12 +23,10 @@
 package au.com.gworks.gwt.petstore.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class PetStore implements EntryPoint {
 	public void onModuleLoad() {
-//		Window.alert("gwt team: when this application is refreshed repeatedly in IEv6.0.29000.2180, sometimes the onModuleLoad does not fire.")
 		RootPanel rootPanel = RootPanel.get();
 		{
 			StoreCoordinator main = new StoreCoordinator();

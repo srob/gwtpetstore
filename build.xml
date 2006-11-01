@@ -56,7 +56,7 @@
 				<pathelement location="lib/gwt-widgets-spring.jar" />
 				
 				<!-- compile time only references -->
-				<pathelement location="lib/gems-2.0.1.jar" />
+				<pathelement location="lib/gems-2.0.0.jar" />
 				<pathelement location="${gwt.home}/gwt-user.jar" />
 				<pathelement location="${gwt.home}/gwt-dev-windows.jar" />
 			</classpath>

@@ -75,8 +75,6 @@ public class ShoppingController extends AbstractPageController {
 	}
 
 	public void loadStoreAisles() {
-		if (areAislesLoaded())
-			return;
 		if (Gem.stone.isDebugEnabled())
 			Gem.stone.log("loadStoreAisles queryCtx=" + queryCtx);
 		if (queryCtx.size() > 0)
@@ -97,7 +95,7 @@ public class ShoppingController extends AbstractPageController {
 			Gem.stone.log("loadAislesProducts catId=" + catId + ", queryCtx=" + queryCtx);
 		ControllerCall cb = new ControllerCall(AISLE_INDEX, new Integer(idx)) {
 			public void onSuccess(Object result) {
-				listAislesProducts(result, state);		
+				listAislesProducts(result, this.state);		
 			}
 		};
 		ShoppingRpcController.Util.getInstance().listAislesProducts(catId, cb);
@@ -111,7 +109,7 @@ public class ShoppingController extends AbstractPageController {
 			Gem.stone.log("loadProductShelf prodId=" + prodId + ", queryCtx=" + queryCtx);
 		ControllerCall cb = new ControllerCall(PRODUCT_INDEX, new Integer(idx)) {
 			public void onSuccess(Object result) {
-				listProductShelf(result, state);		
+				listProductShelf(result, this.state);		
 			}
 		};
 		cb.state.put(PRODUCTS_ARR, products);
@@ -125,7 +123,7 @@ public class ShoppingController extends AbstractPageController {
 			Gem.stone.log("loadShelfItemDetails itemId=" + sri.id);
 		ControllerCall cb = new ControllerCall(ITEM_CARD, card) {
 			public void onSuccess(Object result) {
-				listShelfItemDetails(result, state);		
+				listShelfItemDetails(result, this.state);		
 			}
 		};
 		ShoppingRpcController.Util.getInstance().listShelfItemDetails(sri.id, cb);
@@ -135,22 +133,24 @@ public class ShoppingController extends AbstractPageController {
 		if (Gem.stone.isDebugEnabled())
 			Gem.stone.log("loadCompleteDetailsForUrlItemRequest itemId=" + itemId);
 		ControllerCall cb = new ControllerCall(ITEM_ID, itemId) {
-			public void onSuccess(Object result) {
-				listCompleteDetailsForUrlItemRequest(result, state);		
+			public void onSuccess(final Object result) {
+				final Map theState = this.state;
+				listCompleteDetailsForUrlItemRequest(result, theState);		
 			}
 		};
-		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlItemRequest(itemId, !areAislesLoaded(), cb);
+		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlItemRequest(itemId, cb);
 	}
 
 	private void loadCompleteDetailsForUrlProductRequest(String prodId) {
 		if (Gem.stone.isDebugEnabled())
 			Gem.stone.log("loadCompleteDetailsForUrlProductRequest prodId=" + prodId);
 		ControllerCall cb = new ControllerCall(PROD_ID, prodId) {
-			public void onSuccess(Object result) {
-				listCompleteDetailsForUrlProductRequest(result, state);		
+			public void onSuccess(final Object result) {
+				final Map theState = this.state;
+				listCompleteDetailsForUrlProductRequest(result, theState);		
 			}
 		};
-		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlProductRequest(prodId, !areAislesLoaded(), cb);
+		ShoppingRpcController.Util.getInstance().listCompleteDetailsForUrlProductRequest(prodId, cb);
 	}
 	
 	private void listStoreAisles(Object result) {
@@ -224,7 +224,7 @@ public class ShoppingController extends AbstractPageController {
 	}
 	
 	private void listCompleteDetailsBase(Map callState, UrlBaseRequestInfo data) {
-		if (!areAislesLoaded())
+		if (aisles == null)
 			listStoreAisles(data.aisles);
 		int aisleIdx = findAisleIndex(data.aisleId);
 		callState.put(AISLE_INDEX, new Integer(aisleIdx));
@@ -249,10 +249,6 @@ public class ShoppingController extends AbstractPageController {
 		return -1;
 	}
 	
-	private boolean areAislesLoaded() {
-		return aisles != null;
-	}
-	
 	protected class AisleListener extends OutlookBar.ListenerAdapter {
 		public void onItemSelected(int idx, OutlookBarItem sender) {
 			loadProductShelf(idx);
@@ -270,7 +266,7 @@ public class ShoppingController extends AbstractPageController {
 	
 	protected class ShelfListener extends CardDeck.ListenerAdapter {
 		public void onCardOpenned(Card sender) {
-			if (!bypassEvent) 
+			if (!bypassEvent)
 				loadShelfItemDetails(sender);
 		}
 	}
@@ -294,8 +290,6 @@ public class ShoppingController extends AbstractPageController {
 			loadCompleteDetailsForUrlItemRequest(itemId);
 		else if (prodId != null) 
 			loadCompleteDetailsForUrlProductRequest(prodId);
-		else
-			openPage();
 	}
 
 	protected Widget getPageView() {
@@ -307,7 +301,7 @@ public class ShoppingController extends AbstractPageController {
 	}
 	
 	protected void openPage() {
-		if (!openned) {
+		if (!openned && coordinator.isUrlBootstrapped()) {
 			loadStoreAisles();
 			openned = true;
 		}

@@ -24,7 +24,6 @@ package au.com.gworks.gwt.petstore.client;
 
 import org.javaongems.gwk.client.Card;
 import org.javaongems.std.client.EastWestHorizPanels;
-import org.javaongems.std.client.HistoryUtils;
 
 import au.com.gworks.gwt.petstore.client.service.ItemInfo;
 import au.com.gworks.gwt.petstore.client.service.ItemRefInfo;
@@ -36,7 +35,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -91,15 +89,7 @@ public class ProductCardView extends Card implements ClickListener {
 			descLbl.setText(productInfo.name + " - " + si.description);
 			buildBodyFrameIfRequired();
 			productDetails.setText(0, 1, productInfo.description);
-			Hyperlink link = (Hyperlink) productDetails.getWidget(1, 1);
-			if (link == null) {
-				link = new Hyperlink();
-				productDetails.setWidget(1, 1, link);
-				link.setTitle("click here to link to this product item");
-			}
-			link.setText(si.id);
-			link.setTargetHistoryToken(HistoryUtils.toHistoryToken("shopping", "item-id", si.id));
-//			productDetails.setText(1, 1, si.id);
+			productDetails.setText(1, 1, si.id);
 			productDetails.setText(2, 1, si.stockLevel + "");
 			productDetails.setText(3, 1, lp);
 		}

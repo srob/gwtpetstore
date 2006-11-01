@@ -83,7 +83,35 @@ Functional requirements
 
 Known Issues
 ------------
-* [IEv6.0.29000.2180] onModuleLoad() does not occasionally fire after repeated page refreshes
+* Url addressability works mostly fine in firefox, but not IE. IE appears to stall on startup.
+TC 1. 
+open new IE browser to:
+	http://localhost:8080/gwt-petstore/#shopping?item-id=EST-19
+result:
+	1. IE displays no page
+	2. click anywhere in the empty page and the default page is loaded ignoring the
+	   appended query string
+
+TC 2. 
+open new FF browser to:
+	http://localhost:8080/gwt-petstore/#shopping?item-id=EST-19
+result:
+	1. FF opens up the in the shopping tab
+	2. FF opens up the bird aisle in the outlook bar and displays the correct product set
+	3. FF occasionally lists the incorrect product items in the shelf and the "EST-19" 
+	   product card is not auto openned. This could be a timing issue, not sure.
+
+TC 3. 
+use the previously openned FF browser to the following address:
+	http://localhost:8080/gwt-petstore/#shopping?item-id=EST-22
+result:
+	1. FF opens up the in the shopping tab (regardless of where in the appl you are)
+	2. FF opens up the bird aisle in the outlook bar and displays current product set
+	3. FF lists the correct product items in the shelf and the "EST-19" product
+	   card is auto openned correctly
+
+
+	   
 * The Gems::Outlook bar's (ie. StackPanel variant) scroll panel causes resizing to be 
   problematic.
 * The Gems::Outlook bar has poor keyboard support  

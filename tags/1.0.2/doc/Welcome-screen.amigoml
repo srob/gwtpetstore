@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<AMS type="self.amigo.Diagram">
+  <self.amigo.diag.ScreenSketch height="600" lastsaved="1160334884750" title="untitled 0" width="800">
+    <DiagramLayer>
+      <Elements>
+        <self.amigo.elem.RectangleView bounds="-1, -2, 800, 600" id="0">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="-3, 25, 626, 47" fillcolor="-1511689" font="Arial-12" framecolor="-16777216" id="1" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>
+    </self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="624, 25, 175, 573" fillcolor="-1511689" font="Arial-12" framecolor="-16777216" id="2" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers></self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="0, 0, 146, 26" font="Arial-14" framecolor="-16777216" id="3" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>mini logo</self.amigo.elem.TextView>
+        <self.amigo.elem.PolyElementView framecolor="-8939043" id="4">
+          <Shakers></Shakers>
+          <Points>
+            <Point>0, 24</Point>
+            <Point>799, 24</Point>
+          </Points>
+          <SideA head="0" major="" minor="" />
+          <SideB head="0" major="" minor="" />
+        </self.amigo.elem.PolyElementView>
+        <self.amigo.elem.TextView bounds="741, 4, 49, 16" font="Arial-12" framecolor="-16777216" id="5" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Sign in</self.amigo.elem.TextView>
+        <self.amigo.elem.ButtonView bounds="698, 39, 90, 17" id="6" label="Search store" />
+        <self.amigo.elem.RectangleView bounds="546, 38, 143, 19" id="7">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.RectangleView bounds="2, 27, 189, 40" id="8">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="26, 38, 107, 21" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="9" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Logo</self.amigo.elem.TextView>
+        <self.amigo.elem.PolyElementView framecolor="-8939043" id="10">
+          <Shakers></Shakers>
+          <Points>
+            <Point>-1, 72</Point>
+            <Point>623, 72</Point>
+            <Point>623, 81</Point>
+            <Point>792, 81</Point>
+            <Point>792, 107</Point>
+            <Point>623, 107</Point>
+            <Point>623, 598</Point>
+          </Points>
+          <SideA head="0" major="" minor="" />
+          <SideB head="0" major="" minor="" />
+        </self.amigo.elem.PolyElementView>
+        <self.amigo.elem.TextView bounds="621, 82, 170, 24" font="Arial-12" framecolor="-16777216" id="11" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers></self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="633, 84, 107, 21" fillcolor="NOFILL" font="Arial-bold-14" framecolor="-16777216" id="12" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Welcome</self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="633, 117, 107, 21" fillcolor="NOFILL" font="Arial-bold-14" framecolor="-16777216" id="13" showFrame="false" textcolor="-16763956">
+          <Shakers></Shakers>Shopping</self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="10, 114, 436, 68" font="Arial-bold-12" framecolor="-16777216" id="14" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Based on:
+- iBATIS JPetStore, by Clinton Begin
+- Spring JPetStore, by Juergen Hoeller
+</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="3, 80, 614, 24" fillcolor="-8939043" id="15">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="10, 83, 552, 20" fillcolor="NOFILL" font="Verdana-bold-12" framecolor="-16777216" id="16" showFrame="false" textcolor="-1">
+          <Shakers></Shakers>Welcome to the GWT-JPetStore, by Dimax Pradi &amp; Ashin Wimalajeewa</self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="10, 211, 599, 244" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="17" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers> This application demonstrates the use of Spring for the middle tier, including declarative transaction management applied to POJO business objects. This application can easily be configured to use JTA or JDBC for transaction management, so it allows declarative transaction management in a web container without JTA.
+
+There are alternative Spring and Struts MVC layers built on a shared Spring middle tier.</self.amigo.elem.TextView>
+      </Elements>
+    </DiagramLayer>
+  </self.amigo.diag.ScreenSketch>
+</AMS>

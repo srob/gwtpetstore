@@ -1,0 +1,25 @@
+1.0.2
+- migrated to release 1.2.11
+- modified launch and build script to use 1.2.11 gwt distro
+- removed older gems distro
+
+
+1.0.1
+- history
+	* resolved defects
+	* enhanced features
+- entry point page
+	* added support for gwt:property isShellServer. use this if you want to 
+	  debug the server code in combination with script/web mode as opposed
+	  to hosted mode
+- using gems-2.0.1 distro
+	* mods to build script
+	* mods to launch file
+- added product item link on product card view
+- added license files
+
+
+1.0.0
+- initial release with:
+	* history defects
+	* no order facilities

@@ -1,3 +1,9 @@
+1.0.2
+- migrated to release 1.2.11
+- modified launch and build script to use 1.2.11 gwt distro
+- removed older gems distro
+
+
 1.0.1
 - history
 	* resolved defects

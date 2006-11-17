@@ -1,3 +1,9 @@
+1.0.3
+- migrated to release 1.2.22
+- backported application to support 14
+- added rpc test jclient for invoking rpc services from an native java client
+
+
 1.0.2
 - migrated to release 1.2.11
 - modified launch and build script to use 1.2.11 gwt distro

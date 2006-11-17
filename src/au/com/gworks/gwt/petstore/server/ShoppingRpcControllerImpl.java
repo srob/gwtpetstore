@@ -94,52 +94,55 @@ public class ShoppingRpcControllerImpl implements
 
 	public ProductInfo[] listAislesProducts(String catId) {
 		List prodList = petStore.getProductListByCategory(catId);
-		List<ProductInfo> prodInfoList = new ArrayList<ProductInfo>();
+		List/*<ProductInfo>*/ prodInfoList = new ArrayList/*<ProductInfo>*/();
 		for (Iterator it = prodList.iterator(); it.hasNext();) {
 			Product dto = (Product) it.next();
 			String[] urlDesc = new String[2];
 			parseProductDescription(dto.getDescription(), urlDesc);
-			ProductInfo info = new ProductInfo(dto.getProductId(), dto
-					.getName(), urlDesc[1], urlDesc[0]);
+			ProductInfo info = new ProductInfo(dto.getProductId(), dto.getName(), urlDesc[1], urlDesc[0]);
 			prodInfoList.add(info);
 		}
-		return prodInfoList.toArray(new ProductInfo[prodInfoList.size()]);
+		ProductInfo[] ret = new ProductInfo[prodInfoList.size()];
+		prodInfoList.toArray(ret);
+		return ret;
 	}
 
 	public ItemRefInfo[] listProductShelf(String productId) {
 		List itemList = petStore.getItemListByProduct(productId);
-		List<ItemRefInfo> itemInfoList = new ArrayList<ItemRefInfo>();
+		List/*<ItemRefInfo>*/ itemInfoList = new ArrayList/*<ItemRefInfo>*/();
 		for (Iterator it = itemList.iterator(); it.hasNext();) {
 			Item dto = (Item) it.next();
-			ItemRefInfo info = new ItemRefInfo(dto.getItemId(), dto
-					.getAttribute1(), dto.getListPrice());
+			ItemRefInfo info = new ItemRefInfo(dto.getItemId(), dto.getAttribute1(), dto.getListPrice());
 			itemInfoList.add(info);
 		}
-		return itemInfoList.toArray(new ItemRefInfo[itemInfoList.size()]);
+		ItemRefInfo[] ret = new ItemRefInfo[itemInfoList.size()];
+		itemInfoList.toArray(ret);
+		return ret;
 	}
 
 	public ItemInfo listShelfItemDetails(String itemId) {
 		Item dto = petStore.getItem(itemId);
-		return new ItemInfo(dto.getItemId(), dto.getAttribute1(), dto
-				.getListPrice(), dto.getQuantity());
+		return new ItemInfo(dto.getItemId(), dto.getAttribute1(), dto.getListPrice(), dto.getQuantity());
 	}
 
 	public AisleInfo[] listStoreAisles() {
 		List list = petStore.getCategoryList();
-		List<AisleInfo> catInfoList = new ArrayList<AisleInfo>();
+		List/*<AisleInfo>*/ catInfoList = new ArrayList/*<AisleInfo>*/();
 		for (Iterator it = list.iterator(); it.hasNext();) {
 			Category dto = (Category) it.next();
 			AisleInfo info = new AisleInfo(dto.getCategoryId(), dto.getName());
 			catInfoList.add(info);
 		}
 		moveFavouriteToFront(catInfoList, "CATS");
-		return catInfoList.toArray(new AisleInfo[catInfoList.size()]);
+		AisleInfo[] ret = new AisleInfo[catInfoList.size()];
+		catInfoList.toArray(ret);
+		return ret;
 	}
 
-	static private void moveFavouriteToFront(List<AisleInfo> list, String fav) {
+	static private void moveFavouriteToFront(List/*<AisleInfo>*/ list, String fav) {
 		for (int i = 0; i < list.size(); i++) {
-			if (fav.equals(list.get(i).id)) {
-				AisleInfo favAisle = list.remove(i);
+			if (fav.equals(((AisleInfo)list.get(i)).id)) {
+				AisleInfo favAisle = (AisleInfo) list.remove(i);
 				list.add(0, favAisle);
 				return;
 			}

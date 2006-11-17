@@ -41,15 +41,16 @@ public class StoreSearchRpcControllerImpl implements StoreSearchRpcController {
 
 	public ProductInfo[] searchForProducts(String keywords) {
 		List prodList = petStore.searchProductList(keywords);
-		List<ProductInfo> prodInfoList = new ArrayList<ProductInfo>();
+		List/*<ProductInfo>*/ prodInfoList = new ArrayList/*<ProductInfo>*/();
 		for (Iterator it = prodList.iterator(); it.hasNext();) {
 			Product dto = (Product) it.next();
 			String[] urlDesc = new String[2];
 			ShoppingRpcControllerImpl.parseProductDescription(dto.getDescription(), urlDesc);
-			ProductInfo info = new ProductInfo(dto.getProductId(), dto
-					.getName(), urlDesc[1], urlDesc[0]);
+			ProductInfo info = new ProductInfo(dto.getProductId(), dto.getName(), urlDesc[1], urlDesc[0]);
 			prodInfoList.add(info);
 		}
-		return prodInfoList.toArray(new ProductInfo[prodInfoList.size()]);
+		ProductInfo[] ret = new ProductInfo[prodInfoList.size()];
+		prodInfoList.toArray(ret);
+		return ret;
 	}
 }

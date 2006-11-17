@@ -1,0 +1,51 @@
+Read the tutorial at:
+http://g.georgovassilis.googlepages.com/usingthegwthandler
+
+
+JAR Dependancies, min versions listed:
+
+  * gwt-servlet 1.1.10
+  * spring 1.2.6
+  * commons-logging 1.0.4
+  * cglib 2.1_3
+  * javassist 3.0
+  * asm 1.5.3
+  
+
+Example web.xml:
+
+  <servlet>
+    <servlet-name>GWTSpring</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GWTSpring</servlet-name>
+    <url-pattern>*.rpc</url-pattern>
+  </servlet-mapping>
+
+
+
+Example spring config:
+
+<beans>
+  <bean id="urlMapping" class="org.gwtwidgets.server.spring.GWTHandler">
+    <property name="mapping">
+      <map>
+        <entry key="/add.rpc" value-ref="ServiceAdd"/>
+        <entry key="/sub.rpc" value-ref="ServiceSub"/>
+      </map>
+    </property>
+
+    <!-- optional - tells the handler wether to use CGLIB (default, false)
+     or Javassist (true), which performs vastly better in the benchmark 
+     but won't lead to detectable performance gains in real applications.
+    
+    <property name="usingInstrumentation" value="true"/> 
+    -->
+  </bean>
+
+  <bean id="ServiceAdd" class="org.gwtwidgets.server.rpc.test.serverimpl.ServiceAddImpl"/>
+  <bean id="ServiceSub" class="org.gwtwidgets.server.rpc.test.serverimpl.ServiceSubImpl"/>
+</beans>
+

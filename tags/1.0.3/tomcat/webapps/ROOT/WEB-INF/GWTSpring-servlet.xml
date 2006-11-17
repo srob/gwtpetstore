@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="urlMapping"
+		class="org.gwtwidgets.server.spring.GWTHandler">
+		<property name="mapping">
+			<map>
+				<entry key="/welcomeRpcController.rpc" value-ref="welcomeRpcController" />
+				<entry key="/shoppingRpcController.rpc" value-ref="shoppingRpcController" />
+                <entry key="/accountRpcController.rpc" value-ref="accountRpcController" />
+                <entry key="/storeSearchRpcController.rpc" value-ref="storeSearchRpcController" />
+			</map>
+		</property>
+		<property name="usingInstrumentation" value="false" />
+		<property name="unwrappingGWTExceptions" value="true"/>
+		
+		<property name="classEnhancer">
+		<!-- 
+			<bean class="org.gwtwidgets.server.spring.enhancer.JavassistEnhancer"/>
+			<bean class="org.gwtwidgets.server.spring.enhancer.CGLIBEnhancer"/>
+			<bean class="org.javaongems.user.gwthandler.CgLibEnhancer"/>
+		 -->
+			<bean class="org.javaongems.user.gwthandler.JavassistEnhancer"/>
+		</property>
+	</bean>
+
+	<bean id="welcomeRpcController"
+		class="au.com.gworks.gwt.petstore.server.WelcomeRpcControllerImpl" />
+
+	<bean id="shoppingRpcController"
+		class="au.com.gworks.gwt.petstore.server.ShoppingRpcControllerImpl">
+		<property name="petStore" ref="petStore"/>
+	</bean>
+  
+    <bean id="accountRpcController"
+        class="au.com.gworks.gwt.petstore.server.AccountRpcControllerImpl">
+      <property name="petStore" ref="petStore" />
+    </bean>
+  
+    <bean id="storeSearchRpcController"
+        class="au.com.gworks.gwt.petstore.server.StoreSearchRpcControllerImpl">
+      <property name="petStore" ref="petStore" />
+    </bean>
+</beans>

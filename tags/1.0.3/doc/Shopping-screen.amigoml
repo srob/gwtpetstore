@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+
+<AMS type="self.amigo.Diagram">
+  <self.amigo.diag.ScreenSketch height="600" lastsaved="1160336648031" title="untitled 0" width="800">
+    <DiagramLayer>
+      <Elements>
+        <self.amigo.elem.RectangleView bounds="-1, -2, 800, 600" id="0">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="-3, 25, 626, 47" fillcolor="-1511689" font="Arial-12" framecolor="-16777216" id="1" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>
+    </self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="624, 25, 175, 573" fillcolor="-1511689" font="Arial-12" framecolor="-16777216" id="2" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers></self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="0, 0, 146, 26" font="Arial-14" framecolor="-16777216" id="3" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>mini logo</self.amigo.elem.TextView>
+        <self.amigo.elem.PolyElementView framecolor="-8939043" id="4">
+          <Shakers></Shakers>
+          <Points>
+            <Point>0, 24</Point>
+            <Point>799, 24</Point>
+          </Points>
+          <SideA head="0" major="" minor="" />
+          <SideB head="0" major="" minor="" />
+        </self.amigo.elem.PolyElementView>
+        <self.amigo.elem.TextView bounds="741, 4, 49, 16" font="Arial-12" framecolor="-16777216" id="5" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Sign in</self.amigo.elem.TextView>
+        <self.amigo.elem.ButtonView bounds="698, 39, 90, 17" id="6" label="Search store" />
+        <self.amigo.elem.RectangleView bounds="546, 38, 143, 19" id="7">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.RectangleView bounds="2, 27, 189, 40" id="8">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="26, 38, 107, 21" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="9" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Logo</self.amigo.elem.TextView>
+        <self.amigo.elem.PolyElementView framecolor="-8939043" id="10">
+          <Shakers></Shakers>
+          <Points>
+            <Point>-1, 72</Point>
+            <Point>623, 72</Point>
+            <Point>623, 111</Point>
+            <Point>792, 111</Point>
+            <Point>792, 138</Point>
+            <Point>624, 138</Point>
+            <Point>623, 598</Point>
+          </Points>
+          <SideA head="0" major="" minor="" />
+          <SideB head="0" major="" minor="" />
+        </self.amigo.elem.PolyElementView>
+        <self.amigo.elem.TextView bounds="622, 113, 170, 24" font="Arial-12" framecolor="-16777216" id="11" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers></self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="633, 84, 107, 21" fillcolor="NOFILL" font="Arial-bold-14" framecolor="-16777216" id="12" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Welcome</self.amigo.elem.TextView>
+        <self.amigo.elem.TextView bounds="633, 117, 107, 21" fillcolor="NOFILL" font="Arial-bold-14" framecolor="-16777216" id="13" showFrame="false" textcolor="-16763956">
+          <Shakers></Shakers>Shopping</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="3, 80, 614, 24" fillcolor="-8939043" id="14">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="10, 83, 552, 20" fillcolor="NOFILL" font="Verdana-bold-12" framecolor="-16777216" id="15" showFrame="false" textcolor="-1">
+          <Shakers></Shakers>Shopping</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="3, 113, 160, 472" id="16">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.RectangleView bounds="4, 114, 158, 20" fillcolor="-1511689" id="17">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="5, 116, 49, 16" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="18" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Fish</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="4, 135, 158, 20" fillcolor="-1511689" id="19">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="5, 137, 49, 16" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="20" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Dogs</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="4, 543, 158, 20" fillcolor="-1511689" id="21">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="5, 545, 49, 16" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="22" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Cats</self.amigo.elem.TextView>
+        <self.amigo.elem.RectangleView bounds="4, 564, 158, 20" fillcolor="-1511689" id="23">
+          <Shakers></Shakers>
+        </self.amigo.elem.RectangleView>
+        <self.amigo.elem.TextView bounds="5, 566, 49, 16" fillcolor="NOFILL" font="Arial-12" framecolor="-16777216" id="24" showFrame="false" textcolor="-16777216">
+          <Shakers></Shakers>Birds</self.amigo.elem.TextView>
+      </Elements>
+    </DiagramLayer>
+  </self.amigo.diag.ScreenSketch>
+</AMS>
